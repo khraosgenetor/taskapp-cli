@@ -18,29 +18,29 @@ A simple command-line task manager written in C++ using [nlohmann/json](https://
 ### Build
 
 ```bash
-g++ main.cpp -o taskcli
+g++ main.cpp -o main.exe
 ````
 
 ### Run (Interactive Mode)
 
 ```bash
-./taskcli
+./main.exe
 ```
 
 ### Run (Command-Line Mode)
 
 ```bash
 # View all tasks
-./taskcli view
+./main.exe view
 
 # View only done tasks
-./taskcli view done
+./main.exe view done
 
 # Add a new task
-./taskcli add
+./main.exe add
 
 # Delete a task with ID 3
-./taskcli delete 3
+./main.exe delete 3
 ```
 
 ## 📂 Task Format
