@@ -43,6 +43,10 @@ g++ main.cpp -o main.exe
 ./main.exe delete 3
 ```
 
+## Showcase:
+
+https://github.com/user-attachments/assets/a8401d42-a26e-460e-a87a-d408852a9ad9
+
 ## 📂 Task Format
 
 Each task is stored as an object in `taskCLI.json`:
