@@ -117,6 +117,75 @@ void view() {
     }
 }
 
+void modifyFunc(int id, json tasks) {
+    bool found = false;
+
+    for (auto& task : tasks) {
+        if (task["id"] == id) {
+            found = true;
+            std::cout << "What do you wish to modify? Title, or Status? (1 and 2): ";
+            int ch;
+            std::cin >> ch;
+
+            if (ch == 1) {
+                std::string new_title;
+                std::cout << "Enter new title: ";
+                std::getline(std::cin >> std::ws, new_title);
+                task["title"] = new_title;
+            } else if (ch == 2) {
+                int new_status;
+                std::cout << "Enter new status (1 = Done, 2 = In Progress, 3 = Not Done): ";
+                std::cin >> new_status;
+                task["status"] = new_status;
+            } else {
+                std::cout << "Invalid choice.\n";
+                return;
+            }
+            break;
+        }
+    }
+
+    if (!found) {
+        std::cout << "Task with ID " << id << " not found.\n";
+        return;
+    }
+
+    std::ofstream out("taskCLI.json");
+    out << tasks.dump(4);
+    out.close();
+
+    std::cout << "Task modified successfully.\n";
+
+    std::cout << "New tasks list: ";
+    view();
+}
+
+
+void modifyM() {
+    std::ifstream file("taskCLI.json");
+    json tasks;
+    file >> tasks;
+    file.close();
+
+    if (g_argc > 2) {
+        int id = std::atoi(g_argv[2]);
+        modifyFunc(id, tasks);
+        return;
+    }
+
+    if(tasks.empty()) {
+        std::cout << "No tasks found.\n";
+    } else {
+        view();
+        std::cout << "Enter the ID of the task you want to modify: ";
+        int id;
+        std::cin >> id;
+
+        modifyFunc(id, tasks);
+    }
+        
+}
+
 void add() {
     std::ifstream in("taskCLI.json");
     json tasks;
@@ -219,6 +288,7 @@ void main_noargs() {
     std::cout << "1) View Tasks (All, Done, In Progress, Not Done).\n";
     std::cout << "2) Add a task.\n";
     std::cout << "3) Delete a task\n";
+    std::cout << "4) Modify a pre-existing task\n";
     std::cout << "Enter your command: ";
 
     int c;
@@ -230,6 +300,8 @@ void main_noargs() {
         add();
     } else if (c == 3) {
         deleteM();
+    }  else if(c == 4) {
+        modifyM();
     } else {
         std::cout << "Invalid Menu Number: " << c << "\n";
     }
@@ -247,6 +319,8 @@ int main(int argc, char const* argv[]) {
             add();
         } else if (strcmp(argv[1], "delete") == 0) {
             deleteM();
+        } else if(strcmp(argv[1], "modify") == 0) {
+            modifyM();
         } else {
             std::cout << "Invalid Argument.\n";
         }
