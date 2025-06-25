@@ -10,6 +10,7 @@ A simple command-line task manager written in C++ using [nlohmann/json](https://
   - `Not Done`
 - Add new tasks with a status.
 - Delete tasks by ID (auto re-indexes IDs).
+- Modify tasks by ID (change title or status).
 - JSON-based persistent storage.
 - Supports both interactive mode and command-line arguments.
 
@@ -41,11 +42,14 @@ g++ main.cpp -o main.exe
 
 # Delete a task with ID 3
 ./main.exe delete 3
+
+# Modify a task with ID 2
+./main.exe modify 2
 ```
 
 ## Showcase:
 
-https://github.com/user-attachments/assets/a8401d42-a26e-460e-a87a-d408852a9ad9
+[https://github.com/user-attachments/assets/a8401d42-a26e-460e-a87a-d408852a9ad9](https://github.com/user-attachments/assets/a8401d42-a26e-460e-a87a-d408852a9ad9)
 
 ## 📂 Task Format
 
